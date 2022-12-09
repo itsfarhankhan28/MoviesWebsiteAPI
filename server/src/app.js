@@ -51,6 +51,18 @@ app.get('/movies/:name',async(req,res)=>{
     }
 })
 
+//Delete Movie 
+app.delete('/movies/:id',async(req,res)=>{
+    try{
+        const movieId = req.params.id
+        const deleteMovie = await Movies.findByIdAndDelete({_id:movieId})
+        console.log(deleteMovie)
+        res.send(deleteMovie)
+    }catch(err){
+        console.log(err)
+    }
+})
+
 app.listen(port , ()=>{
     console.log(`running port at ${port}`)
 })
