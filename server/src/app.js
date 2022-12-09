@@ -34,8 +34,8 @@ app.get('/movies/:id',async(req,res)=>{
         const movieData = await Movies.findById({_id})
         console.log(movieData)
         res.send(movieData)
-    }catch(error){
-        console.log(error)
+    }catch(errorr){
+        console.log(errorr)
     }
 })
 
