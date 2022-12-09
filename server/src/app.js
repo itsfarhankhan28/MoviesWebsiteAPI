@@ -63,6 +63,19 @@ app.delete('/movies/:id',async(req,res)=>{
     }
 })
 
+//Update Movies
+app.put('/movies/:id',async(req,res)=>{
+    const _id = req.params.id
+    const updateMovie = await Movies.findByIdAndUpdate({_id},{
+        $set:{
+            actors:"KGFChapter2"
+        }
+    },{
+        new:true,
+        usefindandModify:false
+    })
+})
+
 app.listen(port , ()=>{
     console.log(`running port at ${port}`)
 })
