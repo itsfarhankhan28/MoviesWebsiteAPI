@@ -39,6 +39,18 @@ app.get('/movies/:id',async(req,res)=>{
     }
 })
 
+//Get Movie by name
+app.get('/movies/:name',async(req,res)=>{
+    try{
+        const name = req.params.name
+        const MovieName = await Movies.find({name})
+        console.log(MovieName)
+        res.send(MovieName)
+    }catch(err){
+        console.log(err)
+    }
+})
+
 app.listen(port , ()=>{
     console.log(`running port at ${port}`)
 })
