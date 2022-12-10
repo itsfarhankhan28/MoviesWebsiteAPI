@@ -10,6 +10,10 @@ const movieSchema = mongoose.Schema({
     FilmingLocation:String,
     ProductionCompanies:String,
     Ratings:Number,
+    movieImage:{
+        data:Buffer,
+        contentType:String
+    }
 })
 
 const Movies = mongoose.model("Movies",movieSchema)

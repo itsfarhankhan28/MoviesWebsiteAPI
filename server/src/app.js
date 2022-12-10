@@ -1,14 +1,28 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 8000
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination:function(req , file , cb){
+        cb(null , './uploads/')
+    },
+    filename:function(req,file,cb){
+        cb(null,new Date().toISOString + file.originalname)
+    }
+})
+
+const upload = multer({storage:storage})
 
 app.use(express.json())
+app.use(express.static('uploads'))
 
 require('../db/conn')
 const Movies = require('../models/schema')
 
 //Add Movies
-app.post('/movies',async(req,res)=>{
+app.post('/movies',upload.single('movieImage'),async(req,res)=>{
+    console.log(req.file)
     const movies = new Movies(req.body)
     console.log(movies)
 
