@@ -30,10 +30,10 @@ app.post('/movies',upload.single('movieImage'),async(req,res)=>{
     res.status(200).send("Movie added successfully")
 })
 
-//Get All Movies
+//Get All Movies and with Query
 app.get('/movies',async(req,res)=>{
     try{
-        const moviesData = await Movies.find()
+        const moviesData = await Movies.find(req.query)
         console.log(moviesData)
         res.send(moviesData)
     }catch(err){
@@ -53,17 +53,14 @@ app.get('/movies/:id',async(req,res)=>{
     }
 })
 
-//Get Movie by name
-app.get('/movies/:name',async(req,res)=>{
-    try{
-        const name = req.params.name
-        const MovieName = await Movies.find({name})
-        console.log(MovieName)
-        res.send(MovieName)
-    }catch(err){
-        console.log(err)
-    }
-})
+//Get Movie by query
+// app.get('/movies' , async(req,res)=>{
+//     try{
+//         console.log(req.query)
+//     }catch(err){
+//         console.log(err)
+//     }
+// })
 
 //Delete Movie 
 app.delete('/movies/:id',async(req,res)=>{
