@@ -43,8 +43,10 @@ app.post('/movies',upload.single('movieImage'),async(req,res)=>{
 
 //Get movie with one correct query
 app.get('/movies',async(req,res)=>{
-    const {name,releaseDate} = req.query
+    const {name,releaseDate,select} = req.query
     const queryObject = {}
+
+    var MovieData = Movies.find(queryObject)
 
     if(name){
         queryObject.name = {$regex:name , $options:"i"}
@@ -54,7 +56,19 @@ app.get('/movies',async(req,res)=>{
         queryObject.releaseDate = releaseDate
     }
 
-    const Moviename = await Movies.find(queryObject)
+    if(select){
+        const selectedField = select.split(",").join(" ")
+        MovieData = MovieData.select(selectedField)
+    }
+
+    let page = (req.query.page) || 1
+    let limit = (req.query.limit) || 3
+
+    let skip = (page-1) * limit
+
+    MovieData = MovieData.skip(skip).limit(limit)
+
+    const Moviename = await MovieData
     res.send(Moviename)
 })
 
