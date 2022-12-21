@@ -31,14 +31,31 @@ app.post('/movies',upload.single('movieImage'),async(req,res)=>{
 })
 
 //Get All Movies and with Query
+// app.get('/movies',async(req,res)=>{
+//     try{
+//         const moviesData = await Movies.find(req.query)
+//         console.log(moviesData)
+//         res.send(moviesData)
+//     }catch(err){
+//         console.log(err)
+//     }
+// })
+
+//Get movie with one correct query
 app.get('/movies',async(req,res)=>{
-    try{
-        const moviesData = await Movies.find(req.query)
-        console.log(moviesData)
-        res.send(moviesData)
-    }catch(err){
-        console.log(err)
+    const {name,releaseDate} = req.query
+    const queryObject = {}
+
+    if(name){
+        queryObject.name = {$regex:name , $options:"i"}
     }
+
+    if(releaseDate){
+        queryObject.releaseDate = releaseDate
+    }
+
+    const Moviename = await Movies.find(queryObject)
+    res.send(Moviename)
 })
 
 //Get Movie By Id
