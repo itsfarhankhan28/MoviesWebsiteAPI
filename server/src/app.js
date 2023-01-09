@@ -121,3 +121,5 @@ app.put('/movies/:id',async(req,res)=>{
 app.listen(port , ()=>{
     console.log(`running port at ${port}`)
 })
+
+module.exports = app
