@@ -8,8 +8,8 @@
     ],
     "routes": [
       {
-        "src": "/movies(.*)",
-        "dest": "/movies"
+        "src": "/(.*)",
+        "dest": "app.js"
       }
     ]
   }
